@@ -20,9 +20,9 @@ someone_t *create_human(char *type)
   * @param  self: con trỏ địa chỉ chứa người được truyền vào
   * @retval None
   */
-void cadge(someone_t *self)
+void cadge(someone_t *self, FILE *output)
 {
-    printf("lam on lam phuoc\n");
+    fprintf(output, "lam on lam phuoc\n");
 }
 
 /**
@@ -30,9 +30,9 @@ void cadge(someone_t *self)
   * @param  self: con trỏ địa chỉ chứa người được truyền vào
   * @retval None
   */
-void stole(someone_t *self)
+void stole(someone_t *self, FILE *output)
 {
-    printf("!!!\n");
+    fprintf(output, "!!!\n");
 }
 
 /**
@@ -40,9 +40,9 @@ void stole(someone_t *self)
   * @param  self: con trỏ địa chỉ chứa người được truyền vào
   * @retval None
   */
-void work(someone_t *self)
+void work(someone_t *self, FILE *output)
 {
-    printf("congnhanincome %d\n", self->income.cong_nhan_income);
+    fprintf(output, "congnhanincome %d\n", self->income.cong_nhan_income);
 }
 
 /**

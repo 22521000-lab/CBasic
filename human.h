@@ -24,13 +24,13 @@ struct someone_t
 {
     char *type;                           /*!<loại người*/
     income_u income;                      /*!<thu nhập của loại người tương ứng*/
-    void (*action)(someone_t * self);     /*!<con trỏ hàm hành động tương ứng*/
+    void (*action)(someone_t * self, FILE *output);     /*!<con trỏ hàm hành động tương ứng*/
 };
 
 someone_t *create_human(char *type);
-void cadge(someone_t *self);
-void stole(someone_t *self);
-void work(someone_t *self);
+void cadge(someone_t *self, FILE *output);
+void stole(someone_t *self, FILE *output);
+void work(someone_t *self, FILE *output);
 void init_human(someone_t *self);
 someone_t *delete_human(someone_t *self);
 #endif
