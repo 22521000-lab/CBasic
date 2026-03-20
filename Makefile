@@ -1,27 +1,32 @@
-# 1. Khai báo trình biên dịch và flag
+# Khai báo trình biên dịch và flag
 CC = gcc
-CFLAGS = -Wall -Wextra -g
+CFLAGS = -Wall -Wextra -g -MMD
 
-# 2. Danh sách các file object (.o) cần tạo
-# Khi có thêm file mới (ví dụ engine.c), chỉ cần thêm engine.o vào đây
+# Danh sách các file object  .c -> .o
 OBJS = main.o human.o
 
-# 3. Tên file thực thi đầu ra
-TARGET ?= my_program
+# Tên file thực thi (Thêm .exe cho Windows để đồng nhất)
+TARGET = my_program.exe
 
-# 4. Rule mặc định: chạy khi gõ 'make'
+# Rule mặc định
 all: $(TARGET)
 
-# 5. Cách tạo ra file thực thi từ các file object
+# Link các file object thành file thực thi
 $(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS)
+	$(CC) $(CFLAGS) -o $@ $^
 
-# 6. Cách biên dịch file .c thành file .o
-# % khớp với mọi tên file
-%.o: %.c human.h
+# Biên dịch file .c thành .o
+%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
+
+# Tự động chèn các file phụ thuộc (.d) do GCC tạo ra
+-include $(OBJS:.o=.d)
+
+# Rule chạy chương trình
 run: $(TARGET)
-	./$(TARGET).exe
-# 7. Lệnh dọn dẹp (gõ 'make clean')
+	./$(TARGET)
+
+# 7. Lệnh dọn dẹp
 clean:
-	del /f *.o $(TARGET).exe
+	del /f /q *.o *.d $(TARGET)
+.PHONY: all run clean
